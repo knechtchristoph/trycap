@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+        <edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="MyService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="Customers" EntityType="MyService.Customers"/>
+            </EntityContainer>
+            <EntityType Name="Customers">
+                <Key>
+                    <PropertyRef Name="CustomerGuid"/>
+                </Key>
+                <Property Name="CustomerGuid" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="CustomerNumber" Type="Edm.String" MaxLength="8" Nullable="false"/>
+                <Property Name="CustomerName" Type="Edm.String" MaxLength="25" Nullable="false"/>
+                <Property Name="Street" Type="Edm.String" MaxLength="30" Nullable="false"/>
+                <Property Name="PostCode" Type="Edm.String" MaxLength="10" Nullable="false"/>
+                <Property Name="City" Type="Edm.String" MaxLength="25" Nullable="false"/>
+            </EntityType>
+            <Annotations Target="MyService.EntityContainer/Customers">
+                <Annotation Term="Capabilities.NavigationRestrictions">
+                    <Record Type="Capabilities.NavigationRestrictionsType">
+                        <PropertyValue Property="RestrictedProperties">
+                            <Collection>
+                                <Record Type="Capabilities.NavigationPropertyRestriction">
+                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="_Bookings"/>
+                                    <PropertyValue Property="InsertRestrictions">
+                                        <Record Type="Capabilities.InsertRestrictionsType">
+                                            <PropertyValue Property="Insertable" Path="__CreateByAssociationControl/_Bookings"/>
+                                        </Record>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SearchRestrictions">
+                    <Record Type="Capabilities.SearchRestrictionsType">
+                        <PropertyValue Property="Searchable" Bool="true"/>
+                        <PropertyValue Property="UnsupportedExpressions" EnumMember="Capabilities.SearchExpressions/phrase"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record Type="Capabilities.FilterRestrictionsType">
+                        <PropertyValue Property="NonFilterableProperties">
+                            <Collection>
+                                <PropertyPath>__CreateByAssociationControl</PropertyPath>
+                                <PropertyPath>__EntityControl</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SortRestrictions">
+                    <Record Type="Capabilities.SortRestrictionsType">
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>__CreateByAssociationControl</PropertyPath>
+                                <PropertyPath>__EntityControl</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                        <PropertyValue Property="QueryOptions">
+                            <Record Type="Capabilities.ModificationQueryOptionsType">
+                                <PropertyValue Property="SelectSupported" Bool="true"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="MyService.Customers/CustomerGuid">
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="FBP GUID"/>
+                <Annotation Term="Common.Heading" String="Flight Business Partner GUID"/>
+                <Annotation Term="Common.QuickInfo" String="Flight Business Partner GUID"/>
+            </Annotations>
+            <Annotations Target="MyService.Customers/CustomerNumber">
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Customer Number"/>
+                <Annotation Term="Common.Heading" String="Cust. No."/>
+            </Annotations>
+            <Annotations Target="MyService.Customers/CustomerName">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+                <Annotation Term="Common.Label" String="Customer name"/>
+            </Annotations>
+            <Annotations Target="MyService.Customers/Street">
+                <Annotation Term="Common.Label" String="Street"/>
+            </Annotations>
+            <Annotations Target="MyService.Customers/PostCode">
+                <Annotation Term="Common.IsUpperCase" Bool="true"/>
+                <Annotation Term="Common.Label" String="Postal Code"/>
+                <Annotation Term="Common.Heading" String="Post. code"/>
+            </Annotations>
+            <Annotations Target="MyService.Customers/City">
+                <Annotation Term="Common.Label" String="City"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

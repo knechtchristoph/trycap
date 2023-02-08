@@ -1,68 +1,77 @@
 {
-  "name": "trycap",
-  "version": "1.0.0",
-  "description": "A simple CAP project.",
-  "repository": "<Add your repository here>",
-  "license": "UNLICENSED",
-  "private": true,
-  "dependencies": {
-    "@sap-cloud-sdk/http-client": "^2.14.0",
-    "@sap/cds": "^6",
-    "express": "^4",
-    "hdb": "^0.19.0",
-    "@sap/xssec": "^3",
-    "passport": "^0"
-  },
-  "devDependencies": {
-    "sqlite3": "^5.0.4"
-  },
-  "scripts": {
-    "start": "cds run"
-  },
-  "engines": {
-    "node": "^16.15"
-  },
-  "eslintConfig": {
-    "extends": "eslint:recommended",
-    "env": {
-      "es2020": true,
-      "node": true,
-      "jest": true,
-      "mocha": true
+    "name": "trycap",
+    "version": "1.0.0",
+    "description": "A simple CAP project.",
+    "repository": "<Add your repository here>",
+    "license": "UNLICENSED",
+    "private": true,
+    "dependencies": {
+        "@sap-cloud-sdk/http-client": "^2.14.0",
+        "@sap/cds": "^6",
+        "@sap/xssec": "^3",
+        "express": "^4",
+        "hdb": "^0.19.0",
+        "passport": "^0"
     },
-    "globals": {
-      "SELECT": true,
-      "INSERT": true,
-      "UPDATE": true,
-      "DELETE": true,
-      "CREATE": true,
-      "DROP": true,
-      "CDL": true,
-      "CQL": true,
-      "CXL": true,
-      "cds": true
+    "devDependencies": {
+        "@sap/ux-specification": "^1.102.16",
+        "sqlite3": "^5.0.4",
+        "rimraf": "^3.0.2"
     },
-    "rules": {
-      "no-console": "off",
-      "require-atomic-updates": "off"
-    }
-  },
-  "cds": {
-    "requires": {
-      "db": {
-        "kind": "sql"
-      },
-      "com_sap_gateway_srvd_ux_ui_customer_v0001": {
-        "kind": "odata",
-        "model": "srv/external/com_sap_gateway_srvd_ux_ui_customer_v0001",
-        "credentials": {
-          "destination": "S4D_100",
-          "path": "/sap/opu/odata4/sap/ux_ui_customer_o4/srvd/sap/ux_ui_customer/0001/"
+    "scripts": {
+        "start": "cds run",
+        "watch-customers": "cds watch --open customers/webapp/index.html?sap-ui-xx-viewCache=false",
+        "undeploy": "cf undeploy trycap --delete-services --delete-service-keys --delete-service-brokers",
+        "build": "rimraf resources mta_archives && mbt build --mtar archive",
+        "deploy": "cf deploy mta_archives/archive.mtar --retries 1"
+    },
+    "engines": {
+        "node": "^16.15"
+    },
+    "eslintConfig": {
+        "extends": "eslint:recommended",
+        "env": {
+            "es2020": true,
+            "node": true,
+            "jest": true,
+            "mocha": true
+        },
+        "globals": {
+            "SELECT": true,
+            "INSERT": true,
+            "UPDATE": true,
+            "DELETE": true,
+            "CREATE": true,
+            "DROP": true,
+            "CDL": true,
+            "CQL": true,
+            "CXL": true,
+            "cds": true
+        },
+        "rules": {
+            "no-console": "off",
+            "require-atomic-updates": "off"
         }
-      },
-      "auth": {
-        "kind": "xsuaa"
-      }
-    }
-  }
+    },
+    "cds": {
+        "requires": {
+            "db": {
+                "kind": "sql"
+            },
+            "com_sap_gateway_srvd_ux_ui_customer_v0001": {
+                "kind": "odata",
+                "model": "srv/external/com_sap_gateway_srvd_ux_ui_customer_v0001",
+                "credentials": {
+                    "destination": "S4D_100",
+                    "path": "/sap/opu/odata4/sap/ux_ui_customer_o4/srvd/sap/ux_ui_customer/0001/"
+                }
+            },
+            "auth": {
+                "kind": "xsuaa"
+            }
+        }
+    },
+    "sapux": [
+        "app/customers"
+    ]
 }
