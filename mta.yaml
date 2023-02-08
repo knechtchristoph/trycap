@@ -25,6 +25,7 @@ modules:
       - name: trycap-db
       - name: trycap-connectivity
       - name: trycap-destination
+      - name: trycap-auth
 
   - name: trycap-db-deployer
     type: hdb
@@ -50,3 +51,12 @@ resources:
     parameters:
       service: destination
       service-plan: lite
+  - name: trycap-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: trycap-${org}-${space}
+        tenant-mode: dedicated
