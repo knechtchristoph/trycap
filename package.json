@@ -6,6 +6,7 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
+    "@sap-cloud-sdk/http-client": "^2.14.0",
     "@sap/cds": "^6",
     "express": "^4",
     "hdb": "^0.19.0"
@@ -47,7 +48,15 @@
   "cds": {
     "requires": {
       "db": {
-        "kind": "hana-cloud"
+        "kind": "sql"
+      },
+      "com_sap_gateway_srvd_ux_ui_customer_v0001": {
+        "kind": "odata",
+        "model": "srv/external/com_sap_gateway_srvd_ux_ui_customer_v0001",
+        "credentials": {
+          "destination": "S4D_100",
+          "path": "/sap/opu/odata4/sap/ux_ui_customer_o4/srvd/sap/ux_ui_customer/0001/"
+        }
       }
     }
   }

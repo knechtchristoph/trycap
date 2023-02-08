@@ -38,3 +38,8 @@ resources:
     parameters:
       service: hana
       service-plan: hdi-shared
+  - name: trycap-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite
