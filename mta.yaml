@@ -23,6 +23,7 @@ modules:
           srv-url: ${default-url}
     requires:
       - name: trycap-db
+      - name: trycap-connectivity
       - name: trycap-destination
 
   - name: trycap-db-deployer
@@ -39,6 +40,11 @@ resources:
     parameters:
       service: hana
       service-plan: hdi-shared
+  - name: trycap-connectivity
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: connectivity
+      service-plan: lite
   - name: trycap-destination
     type: org.cloudfoundry.managed-service
     parameters:
