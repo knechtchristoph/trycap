@@ -23,6 +23,7 @@ modules:
           srv-url: ${default-url}
     requires:
       - name: trycap-db
+      - name: trycap-destination
 
   - name: trycap-db-deployer
     type: hdb
